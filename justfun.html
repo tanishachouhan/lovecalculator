@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💘 Love Match Calculator 💘</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffb6c1, #ffe4e1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    input, select {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #e754a4;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #ff1493;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>💘 Love Calculator 💘</h1>
+  <div class="container">
+    <input type="text" id="name1" placeholder="Your Name">
+    <select id="gender1">
+      <option value="">Your Gender</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+      <option value="other">Other</option>
+    </select>
+    <input type="date" id="dob1"><br>
+
+    <input type="text" id="name2" placeholder="Crush's Name">
+    <select id="gender2">
+      <option value="">Crush's Gender</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+      <option value="other">Other</option>
+    </select>
+    <input type="date" id="dob2"><br>
+
+    <button onclick="calculateLove()">Calculate ❤️</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateLove() {
+      const name1 = document.getElementById("name1").value.trim();
+      const gender1 = document.getElementById("gender1").value;
+      const dob1 = document.getElementById("dob1").value;
+      const name2 = document.getElementById("name2").value.trim();
+      const gender2 = document.getElementById("gender2").value;
+      const dob2 = document.getElementById("dob2").value;
+
+      if (!name1 || !dob1 || !name2 || !dob2 || !gender1 || !gender2) {
+        document.getElementById("result").innerHTML = "Please fill in all fields 💔";
+        return;
+      }
+
+      const combined = name1 + gender1 + dob1 + name2 + gender2 + dob2;
+
+      let hash = 0;
+      for (let i = 0; i < combined.length; i++) {
+        hash = combined.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      const lovePercent = Math.abs(hash % 101);
+
+      let message = "";
+      if (lovePercent > 80) message = "❤️ Soulmates! ❤️";
+      else if (lovePercent > 60) message = "💞 Great Match 💞";
+      else if (lovePercent > 40) message = "💘 Some Spark 💘";
+      else if (lovePercent > 20) message = "🤔 Needs Work 🤔";
+      else message = "💔 Not meant to be 💔";
+
+      document.getElementById("result").innerHTML = 
+        `${name1} & ${name2} are ${lovePercent}% compatible!<br><strong>${message}</strong>`;
+    }
+  </script>
+</body>
+</html>
+
+
+
+
